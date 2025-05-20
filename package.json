@@ -6,9 +6,9 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "start": "pm2 start index.js --deep-monitoring --attach --name malvin",
-    "stop": "pm2 stop malvin",
-    "restart": "pm2 restart malvin"
+    "start": "pm2 start index.js --deep-monitoring --attach --name mrntando",
+    "stop": "pm2 stop mrntando",
+    "restart": "pm2 restart mrntando"
   },
   "author": "Mr Ntando Ofc",
   "license": "GPL-3.0 license",
