@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAYBOY| SESSION VALIDATOR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;  
+            --secondary: #4D44DB;
+            --accent: #FF6584;    
+            --text: #2D3748;      
+            --text-light: #718096;
+            --background: #F7FAFC; 
+            --card-bg: #FFFFFF;    
+            --input-bg: #EDF2F7;  
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 
+                     0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #818CF8;    
+            --secondary: #6366F1;  
+            --accent: #F472B6;    
+            --text: #F7FAFC;      
+            --text-light: #CBD5E0; 
+            --background: #1A202C;  
+            --card-bg: #2D3748;    
+            --input-bg: #4A5568;  
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 
+                     0 10px 10px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1.5;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(108, 99, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0); }
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            transform: translateY(0);
+            opacity: 1;
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] .container {
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .round-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(108, 99, 255, 0.2);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        p {
+            margin-bottom: 2rem;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            background-color: var(--input-bg);
+            color: var(--text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(108, 99, 255, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            margin-top: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+        }
+
+        #result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .valid {
+            background-color: rgba(72, 187, 120, 0.1);
+            color: #48BB78;
+            border-left: 4px solid #48BB78;
+        }
+
+        .invalid {
+            background-color: rgba(245, 101, 101, 0.1);
+            color: #F56565;
+            border-left: 4px solid #F56565;
+        }
+
+        .error {
+            background-color: rgba(246, 173, 85, 0.1);
+            color: #F6AD55;
+            border-left: 4px solid #F6AD55;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <div class="container">
+        <div class="flex justify-center mb-4">
+            <img src="https://i.imgur.com/teQzVR1.jpeg" alt="" class="round-image">
+        </div>
+        <h1>Session Validator</h1>
+        <p>Enter Your Session ID and Click Validate to Determine if Session File is Complete(Deployable) or Incomplete(Not Deployable)</p>
+        
+        <div class="form-group">
+            <label for="sessionId">Session ID</label>
+            <input type="text" id="sessionId" placeholder="Eg. mrntando~PJg01RAA#FpCHu...">
+        </div>
+        
+        <div class="actions">
+            <button class="btn" onclick="validateSession()" id="validate-btn">
+                <span id="btn-text">Validate</span>
+            </button>
+            <button class="btn btn-secondary hidden" onclick="window.location.href='./pair'" id="back-btn">
+                Back To Pair
+            </button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'dark';  
+        
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        if (currentTheme === 'dark') {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            if (newTheme === 'dark') {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        });
+
+        function validateSession() {
+            const sessionId = document.getElementById('sessionId').value.trim();
+            const resultDiv = document.getElementById('result');
+            const btnText = document.getElementById('btn-text');
+            const validateBtn = document.getElementById('validate-btn');
+            const backBtn = document.getElementById('back-btn');
+            
+            if (!sessionId) {
+                resultDiv.textContent = 'Please Enter a Session ID';
+                resultDiv.className = 'error';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            btnText.innerHTML = '<span class="loading"></span> Validating...';
+            validateBtn.disabled = true;
+            resultDiv.textContent = '';
+            resultDiv.style.display = 'none';
+            backBtn.classList.add('hidden');
+            
+            fetch('/giftedValidate.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sessionId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                btnText.textContent = 'Validate';
+                validateBtn.disabled = false;
+                
+                if (data.error) {
+                    resultDiv.textContent = data.error;
+                    resultDiv.className = 'error';
+                } else {
+                    resultDiv.textContent = data.message;
+                    resultDiv.className = data.valid ? 'valid' : 'invalid';
+                    backBtn.classList.remove('hidden');
+                }
+                resultDiv.style.display = 'block';
+            })
+            .catch(error => {
+                btnText.textContent = 'Validate';
+                validateBtn.disabled = false;
+                resultDiv.textContent = 'An Error Occurred: ' + error.message;
+                resultDiv.className = 'error';
+                resultDiv.style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>
