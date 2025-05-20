@@ -1,0 +1,17 @@
+{
+    "name": "LADYBUG Session Generator",
+    "description": "Web Session Generator",
+    "logo": "https://i.ibb.co/rGLWj2V8/subzero-bot.jpg",
+    "repository": "https://github.com/mrntandooofc/LADYBUG-PAIR",
+    "keywords": ["MalvinTech","XdKing2"],
+    "success_url": "/", 
+    "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],
+    "env": {      
+      "PORT": {
+        "description": "Port for web app.4000,5000,3000... any!",
+        "value": "5000",
+        "required": false 
+      }
+    }   
+
+}

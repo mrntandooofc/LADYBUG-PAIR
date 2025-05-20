@@ -1,0 +1,32 @@
+{
+  "description": "ladybug-pair-session",
+  "main": "./index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "pm2 start index.js --deep-monitoring --attach --name malvin",
+    "stop": "pm2 stop malvin",
+    "restart": "pm2 restart malvin"
+  },
+  "author": "Mr Ntando Ofc",
+  "license": "GPL-3.0 license",
+  "dependencies": {
+    "awesome-phonenumber": "^2.64.0",
+    "@whiskeysockets/baileys": "^6.6.7",
+    "@hapi/boom": "*",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "axios": "*",
+    "node-cache": "*",
+    "dotenv": "*",
+    "path": "*",
+    "phone": "3.1.30",
+    "pino": "*",
+    "pm2": "^5.2.0",
+    "qrcode": "*"
+  }
+}
