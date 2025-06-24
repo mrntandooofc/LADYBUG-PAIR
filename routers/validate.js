@@ -7,15 +7,15 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const { sessionId } = req.body;
 
-    if (!sessionId) {
-        return res.status(400).json({ error: 'Session ID is Required' });
+    if (!creds.json) {
+        return res.status(400).json({ error: 'creds.json file is Required' });
     }
 
     try {
-        if (!sessionId.startsWith('mrntando~')) {
+        if (!creds.json.startsWith('')) {
             return res.status(400).json({ 
                 valid: false,
-                error: 'Invalid Session ID format: Must start with "mrntando~"'
+                error: 'Invalid creds.json file format'
             });
         }
 
@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
         };
 
         const resultMessage = isValid 
-            ? '✅ Session ID is Valid. You Can Proceed With Bot Deployment.' 
+            ? '✅ creds.json is Valid. You Can Proceed With Bot Deployment.' 
             : '❌ Incomplete Session Data. The Bot Will Not Respond When Deployed. Please Log Out And Relink.';
 
         try {
@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
         console.error('Validation error:', error);
         return res.status(500).json({ 
             valid: false,
-            error: 'Failed to validate session ID',
+            error: 'Failed to validate creds.json',
             systemError: process.env.NODE_ENV === 'development' ? {
                 message: error.message,
                 stack: error.stack
